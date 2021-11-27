@@ -1,0 +1,31 @@
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[package]
+name = "metaltask"
+version = "1.0.0"
+edition = "2021"
+authors = ["Jia Jia <angersax@sina.com>"]
+include = [
+    "src/**/*",
+    "Cargo.toml",
+    "README.md"
+]
+description = "Metal task in Rust"
+repository = "https://github.com/craftslab/metaltask"
+documentation = "https://github.com/craftslab/metaltask"
+homepage = "https://github.com/craftslab/metaltask"
+keywords = ["metal", "task", "rust"]
+categories = ["task"]
+license = "MIT"
+readme = "README.md"
+build = "src/flow/build.rs"
+
+[[bin]]
+name = "metaltask"
+path = "src/main.rs"
+
+[dependencies]
+clap = "3.0.0-beta.4"
+
+[badges]
+maintenance = { status = "actively-developed" }
