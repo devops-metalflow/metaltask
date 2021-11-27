@@ -30,7 +30,7 @@
 
 ```
 USAGE:
-    metaltask [OPTIONS] --config-file <NAME>
+    metaltask --config-file <NAME> --listen-url <URL>
 
 OPTIONS:
     -c, --config-file <NAME>    config file (.yml)
@@ -48,7 +48,12 @@ OPTIONS:
 An example of configuration in [config.yml](https://github.com/craftslab/metaltask/blob/master/src/config/config.yml):
 
 ```yaml
-TODO
+apiVersion: v1
+kind: worker
+metadata:
+  name: metaltask
+spec:
+  task:
 ```
 
 
