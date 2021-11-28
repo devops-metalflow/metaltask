@@ -41,5 +41,5 @@ fn test_listen() {
         ..Default::default()
     };
 
-    assert!(c.listen().is_ok());
+    assert!(c.listen().is_err());
 }

@@ -5,4 +5,5 @@ fn test_argument() {
     };
 
     assert_eq!(args.config_file.is_empty(), true);
+    assert_eq!(args.listen_url.is_empty(), true);
 }

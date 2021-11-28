@@ -54,6 +54,9 @@ metadata:
   name: metaltask
 spec:
   task:
+    exec: bash
+    remove: true
+    store: /tmp
 ```
 
 

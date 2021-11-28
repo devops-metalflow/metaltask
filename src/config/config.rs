@@ -27,7 +27,14 @@ pub struct MetaData {
 
 #[derive(Clone, Default, Deserialize, Serialize)]
 pub struct Spec {
-    pub task: Vec<String>,
+    pub task: Task,
+}
+
+#[derive(Clone, Default, Deserialize, Serialize)]
+pub struct Task {
+    pub exec: String,
+    pub remove: bool,
+    pub store: String,
 }
 
 impl Config {
@@ -58,7 +65,10 @@ impl Config {
     }
 
     pub fn listen(&mut self) -> Result<(), Box<dyn Error>> {
-        // PASS
+        if self.listen_url.len() == 0 {
+            return Err("url invalid".into());
+        }
+
         Ok(())
     }
 }
