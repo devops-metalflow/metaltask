@@ -32,9 +32,8 @@ pub struct Spec {
 
 #[derive(Clone, Default, Deserialize, Serialize)]
 pub struct Task {
-    pub exec: String,
-    pub remove: bool,
-    pub store: String,
+    pub clean: bool,
+    pub path: String,
 }
 
 impl Config {

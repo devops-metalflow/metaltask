@@ -5,12 +5,12 @@ package flow;
 // The service definition.
 service FlowProto {
   // Sends flow
-  rpc SendFlow (FlowRequest) returns (FlowReply) {}
+  rpc SendFlow (stream FlowRequest) returns (FlowReply) {}
 }
 
 // The request message.
 message FlowRequest {
-  string message = 1;
+  bytes message = 1;
 }
 
 // The response message.

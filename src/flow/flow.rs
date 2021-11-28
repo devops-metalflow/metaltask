@@ -2,7 +2,7 @@ use crate::config::config::Config;
 use flow::flow_proto_server::{FlowProto, FlowProtoServer};
 use flow::{FlowReply, FlowRequest};
 use std::error::Error;
-use tonic::{transport::Server, Request, Response, Status};
+use tonic::{transport::Server, Request, Response, Status, Streaming};
 
 pub mod flow {
     tonic::include_proto!("flow");
@@ -39,7 +39,7 @@ pub struct FlowServer {
 impl FlowProto for FlowServer {
     async fn send_flow(
         &self,
-        request: Request<FlowRequest>,
+        request: Request<Streaming<FlowRequest>>,
     ) -> Result<Response<FlowReply>, Status> {
         let msg: String;
         match (self.routine)(self.config.clone()) {
