@@ -1,7 +1,8 @@
-use crate::config::config::Config;
+use crate::config::config::{Config, VERSION};
 use flow::flow_proto_server::{FlowProto, FlowProtoServer};
 use flow::{FlowReply, FlowRequest};
 use std::error::Error;
+use std::str;
 use tonic::{transport::Server, Request, Response, Status, Streaming};
 
 pub mod flow {
@@ -10,7 +11,7 @@ pub mod flow {
 
 pub struct Flow {
     pub config: Config,
-    pub routine: fn(Config) -> Result<String, Box<dyn Error>>,
+    pub routine: fn(Config, Vec<u8>) -> Result<String, Box<dyn Error>>,
 }
 
 impl Flow {
@@ -32,7 +33,7 @@ impl Flow {
 
 pub struct FlowServer {
     pub config: Config,
-    pub routine: fn(Config) -> Result<String, Box<dyn Error>>,
+    pub routine: fn(Config, Vec<u8>) -> Result<String, Box<dyn Error>>,
 }
 
 #[tonic::async_trait]
@@ -41,9 +42,25 @@ impl FlowProto for FlowServer {
         &self,
         request: Request<Streaming<FlowRequest>>,
     ) -> Result<Response<FlowReply>, Status> {
+        let mut buf: Vec<u8> = Vec::new();
+        let mut stream: Streaming<FlowRequest> = request.into_inner();
         let msg: String;
-        match (self.routine)(self.config.clone()) {
-            Ok(buf) => msg = buf,
+
+        while let Some(mut m) = stream.message().await? {
+            buf.append(&mut m.message);
+        }
+
+        match str::from_utf8(&buf) {
+            Ok(s) => {
+                if s == VERSION {
+                    msg = self.config.version_info.clone();
+                } else {
+                    match (self.routine)(self.config.clone(), buf.clone()) {
+                        Ok(b) => msg = b,
+                        Err(_) => msg = "".to_string(),
+                    }
+                }
+            }
             Err(_) => msg = "".to_string(),
         }
 

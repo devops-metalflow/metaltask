@@ -4,11 +4,14 @@ use std::error::Error;
 use std::fs::File;
 use std::path::Path;
 
+pub const VERSION: &'static str = "metalmetrics/version";
+
 #[derive(Clone, Default)]
 pub struct Config {
     pub config_data: ConfigData,
     pub config_file: String,
     pub listen_url: String,
+    pub version_info: String,
 }
 
 #[allow(non_snake_case)]
@@ -40,6 +43,7 @@ impl Config {
     pub fn build(&mut self) -> Result<(), Box<dyn Error>> {
         self.config()?;
         self.listen()?;
+        self.version()?;
 
         Ok(())
     }
@@ -68,6 +72,11 @@ impl Config {
             return Err("url invalid".into());
         }
 
+        Ok(())
+    }
+
+    pub fn version(&mut self) -> Result<(), Box<dyn Error>> {
+        // PASS
         Ok(())
     }
 }

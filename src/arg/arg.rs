@@ -5,12 +5,16 @@ use std::error::Error;
 pub struct Argument {
     pub config_file: String,
     pub listen_url: String,
+    pub version_info: String,
 }
 
 impl Argument {
     pub fn parse(&mut self) -> Result<(), Box<dyn Error>> {
+        self.version_info =
+            concat!(env!("CARGO_PKG_VERSION"), "-build-", env!("build")).to_string();
+
         let matches = App::new("metaltask")
-            .version(concat!(env!("CARGO_PKG_VERSION"), "-build-", env!("build")))
+            .version(&*self.version_info)
             .arg(
                 Arg::new("config_file")
                     .short('c')
