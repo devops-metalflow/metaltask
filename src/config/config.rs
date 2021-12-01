@@ -4,7 +4,8 @@ use std::error::Error;
 use std::fs::File;
 use std::path::Path;
 
-pub const VERSION: &'static str = "metalmetrics/version";
+pub const NAME: &'static str = "metaltask";
+pub const VERSION: &'static str = "metaltask/version";
 
 #[derive(Clone, Default)]
 pub struct Config {
