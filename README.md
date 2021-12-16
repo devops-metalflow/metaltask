@@ -33,9 +33,9 @@ USAGE:
     metaltask --config-file <NAME> --listen-url <URL>
 
 OPTIONS:
-    -c, --config-file <NAME>    config file (.yml)
+    -c, --config-file <NAME>    Config file (.yml)
     -h, --help                  Print help information
-    -l, --listen-url <URL>      listen url (host:port)
+    -l, --listen-url <URL>      Listen url (host:port)
     -V, --version               Print version information
 ```
 
