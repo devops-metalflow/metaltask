@@ -10,7 +10,9 @@ service FlowProto {
 
 // The request message.
 message FlowRequest {
-  bytes message = 1;
+  bytes data = 1;
+  string path = 2;
+  bool runnable = 3;
 }
 
 // The response message.

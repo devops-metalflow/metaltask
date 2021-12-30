@@ -11,7 +11,7 @@ pub mod flow {
 
 pub struct Flow {
     pub config: Config,
-    pub routine: fn(Config, Vec<u8>) -> Result<String, Box<dyn Error>>,
+    pub routine: fn(Config, Vec<u8>, String, bool) -> Result<String, Box<dyn Error>>,
 }
 
 impl Flow {
@@ -33,7 +33,7 @@ impl Flow {
 
 pub struct FlowServer {
     pub config: Config,
-    pub routine: fn(Config, Vec<u8>) -> Result<String, Box<dyn Error>>,
+    pub routine: fn(Config, Vec<u8>, String, bool) -> Result<String, Box<dyn Error>>,
 }
 
 #[tonic::async_trait]
@@ -42,20 +42,25 @@ impl FlowProto for FlowServer {
         &self,
         request: Request<Streaming<FlowRequest>>,
     ) -> Result<Response<FlowReply>, Status> {
-        let mut buf: Vec<u8> = Vec::new();
-        let mut stream: Streaming<FlowRequest> = request.into_inner();
+        let mut data: Vec<u8> = Vec::new();
+        let mut path: String = "".to_string();
+        let mut runnable: bool = false;
         let msg: String;
 
+        let mut stream: Streaming<FlowRequest> = request.into_inner();
+
         while let Some(mut m) = stream.message().await? {
-            buf.append(&mut m.message);
+            data.append(&mut m.data);
+            path = m.path;
+            runnable = m.runnable;
         }
 
-        match str::from_utf8(&buf) {
+        match str::from_utf8(&data) {
             Ok(s) => {
                 if s == VERSION {
                     msg = self.config.version_info.clone();
                 } else {
-                    match (self.routine)(self.config.clone(), buf.clone()) {
+                    match (self.routine)(self.config.clone(), data, path, runnable) {
                         Ok(b) => msg = b,
                         Err(_) => msg = "".to_string(),
                     }

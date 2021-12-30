@@ -35,13 +35,14 @@ fn test_create() {
     let task = super::task::Task {
         data: Vec::from(DATA),
         path,
+        ..Default::default()
     };
 
     assert!(task.create().is_ok());
 }
 
 #[test]
-fn test_exec() {
+fn test_run() {
     let path = Path::new(PATH);
     let path = path.join("foo".to_string());
     let task = super::task::Task {
@@ -49,7 +50,7 @@ fn test_exec() {
         ..Default::default()
     };
 
-    assert!(task.exec().is_err());
+    assert!(task.run().is_err());
 
     let path = Path::new(PATH);
     let path = path.join(NAME.to_string());
@@ -58,7 +59,7 @@ fn test_exec() {
         ..Default::default()
     };
 
-    assert!(task.exec().is_ok());
+    assert!(task.run().is_ok());
     assert!(task.clean().is_ok());
 }
 

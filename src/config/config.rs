@@ -5,6 +5,7 @@ use std::fs::File;
 use std::path::Path;
 
 pub const NAME: &'static str = "metaltask";
+pub const PATH: &'static str = "/tmp";
 pub const VERSION: &'static str = "metaltask/version";
 
 #[derive(Clone, Default)]
@@ -37,7 +38,6 @@ pub struct Spec {
 #[derive(Clone, Default, Deserialize, Serialize)]
 pub struct Task {
     pub clean: bool,
-    pub path: String,
 }
 
 impl Config {

@@ -54,8 +54,7 @@ metadata:
   name: metaltask
 spec:
   task:
-    clean: true
-    path: /tmp
+    clean: false
 ```
 
 
