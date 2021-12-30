@@ -45,6 +45,8 @@ impl FlowProto for FlowServer {
         let mut data: Vec<u8> = Vec::new();
         let mut path: String = "".to_string();
         let mut runnable: bool = false;
+
+        let err: String;
         let msg: String;
 
         let mut stream: Streaming<FlowRequest> = request.into_inner();
@@ -59,17 +61,30 @@ impl FlowProto for FlowServer {
             Ok(s) => {
                 if s == VERSION {
                     msg = self.config.version_info.clone();
+                    err = "".to_string();
                 } else {
                     match (self.routine)(self.config.clone(), data, path, runnable) {
-                        Ok(b) => msg = b,
-                        Err(_) => msg = "".to_string(),
+                        Ok(b) => {
+                            msg = b;
+                            err = "".to_string();
+                        }
+                        Err(e) => {
+                            msg = "".to_string();
+                            err = e.to_string();
+                        }
                     }
                 }
             }
-            Err(_) => msg = "".to_string(),
+            Err(e) => {
+                msg = "".to_string();
+                err = e.to_string();
+            }
         }
 
-        let reply = flow::FlowReply { message: msg };
+        let reply = flow::FlowReply {
+            message: msg,
+            error: err,
+        };
         Ok(Response::new(reply))
     }
 }

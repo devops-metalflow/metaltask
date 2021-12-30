@@ -68,7 +68,7 @@ impl Task {
         }
 
         match String::from_utf8(output.stdout) {
-            Ok(buf) => Ok(buf),
+            Ok(_) => Ok("".to_string()),
             Err(_) => Err("output invalid".into()),
         }
     }
