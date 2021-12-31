@@ -47,7 +47,7 @@ impl FlowProto for FlowServer {
         let mut runnable: bool = false;
 
         let err: String;
-        let msg: String;
+        let out: String;
 
         let mut stream: Streaming<FlowRequest> = request.into_inner();
 
@@ -60,30 +60,30 @@ impl FlowProto for FlowServer {
         match str::from_utf8(&data) {
             Ok(s) => {
                 if s == VERSION {
-                    msg = self.config.version_info.clone();
                     err = "".to_string();
+                    out = self.config.version_info.clone();
                 } else {
                     match (self.routine)(self.config.clone(), data, path, runnable) {
                         Ok(b) => {
-                            msg = b;
                             err = "".to_string();
+                            out = b;
                         }
                         Err(e) => {
-                            msg = "".to_string();
                             err = e.to_string();
+                            out = "".to_string();
                         }
                     }
                 }
             }
             Err(e) => {
-                msg = "".to_string();
                 err = e.to_string();
+                out = "".to_string();
             }
         }
 
         let reply = flow::FlowReply {
-            message: msg,
             error: err,
+            output: out,
         };
         Ok(Response::new(reply))
     }
