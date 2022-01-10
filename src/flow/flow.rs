@@ -1,6 +1,6 @@
 use crate::config::config::{Config, VERSION};
-use flow::flow_proto_server::{FlowProto, FlowProtoServer};
-use flow::{FlowReply, FlowRequest};
+use flow::task_proto_server::{TaskProto, TaskProtoServer};
+use flow::{TaskReply, TaskRequest};
 use std::error::Error;
 use std::str;
 use tonic::{transport::Server, Request, Response, Status, Streaming};
@@ -23,7 +23,7 @@ impl Flow {
         };
 
         Server::builder()
-            .add_service(FlowProtoServer::new(server))
+            .add_service(TaskProtoServer::new(server))
             .serve(url)
             .await?;
 
@@ -37,11 +37,11 @@ pub struct FlowServer {
 }
 
 #[tonic::async_trait]
-impl FlowProto for FlowServer {
-    async fn send_flow(
+impl TaskProto for FlowServer {
+    async fn send_task(
         &self,
-        request: Request<Streaming<FlowRequest>>,
-    ) -> Result<Response<FlowReply>, Status> {
+        request: Request<Streaming<TaskRequest>>,
+    ) -> Result<Response<TaskReply>, Status> {
         let mut data: Vec<u8> = Vec::new();
         let mut path: String = "".to_string();
         let mut runnable: bool = false;
@@ -49,7 +49,7 @@ impl FlowProto for FlowServer {
         let err: String;
         let out: String;
 
-        let mut stream: Streaming<FlowRequest> = request.into_inner();
+        let mut stream: Streaming<TaskRequest> = request.into_inner();
 
         while let Some(mut m) = stream.message().await? {
             data.append(&mut m.data);
@@ -81,7 +81,7 @@ impl FlowProto for FlowServer {
             }
         }
 
-        let reply = flow::FlowReply {
+        let reply = flow::TaskReply {
             error: err,
             output: out,
         };
