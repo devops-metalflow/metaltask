@@ -1,14 +1,14 @@
 # metaltask
 
-[![Actions Status](https://github.com/craftslab/metaltask/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/craftslab/metaltask/actions?query=workflow%3ACI)
-[![License](https://img.shields.io/github/license/craftslab/metaltask.svg?color=brightgreen)](https://github.com/craftslab/metaltask/blob/master/LICENSE)
-[![Tag](https://img.shields.io/github/tag/craftslab/metaltask.svg?color=brightgreen)](https://github.com/craftslab/metaltask/tags)
+[![Actions Status](https://github.com/devops-metalflow/metaltask/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/devops-metalflow/metaltask/actions?query=workflow%3ACI)
+[![License](https://img.shields.io/github/license/devops-metalflow/metaltask.svg?color=brightgreen)](https://github.com/devops-metalflow/metaltask/blob/master/LICENSE)
+[![Tag](https://img.shields.io/github/tag/devops-metalflow/metaltask.svg?color=brightgreen)](https://github.com/devops-metalflow/metaltask/tags)
 
 
 
 ## Introduction
 
-*metaltask* is a worker of *[metalflow](https://github.com/craftslab/metalflow/)* written in Rust.
+*metaltask* is a worker of *[metalflow](https://github.com/devops-metalflow/metalflow/)* written in Rust.
 
 
 
@@ -43,9 +43,9 @@ OPTIONS:
 
 ## Settings
 
-*metaltask* parameters can be set in the directory [config](https://github.com/craftslab/metaltask/blob/master/src/config).
+*metaltask* parameters can be set in the directory [config](https://github.com/devops-metalflow/metaltask/blob/master/src/config).
 
-An example of configuration in [config.yml](https://github.com/craftslab/metaltask/blob/master/src/config/config.yml):
+An example of configuration in [config.yml](https://github.com/devops-metalflow/metaltask/blob/master/src/config/config.yml):
 
 ```yaml
 apiVersion: v1
