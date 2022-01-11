@@ -1,7 +1,7 @@
 # metaltask
 
-[![Actions Status](https://github.com/devops-metalflow/metaltask/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/devops-metalflow/metaltask/actions?query=workflow%3ACI)
-[![License](https://img.shields.io/github/license/devops-metalflow/metaltask.svg?color=brightgreen)](https://github.com/devops-metalflow/metaltask/blob/master/LICENSE)
+[![Actions Status](https://github.com/devops-metalflow/metaltask/workflows/CI/badge.svg?branch=main&event=push)](https://github.com/devops-metalflow/metaltask/actions?query=workflow%3ACI)
+[![License](https://img.shields.io/github/license/devops-metalflow/metaltask.svg?color=brightgreen)](https://github.com/devops-metalflow/metaltask/blob/main/LICENSE)
 [![Tag](https://img.shields.io/github/tag/devops-metalflow/metaltask.svg?color=brightgreen)](https://github.com/devops-metalflow/metaltask/tags)
 
 
@@ -43,9 +43,9 @@ OPTIONS:
 
 ## Settings
 
-*metaltask* parameters can be set in the directory [config](https://github.com/devops-metalflow/metaltask/blob/master/src/config).
+*metaltask* parameters can be set in the directory [config](https://github.com/devops-metalflow/metaltask/blob/main/src/config).
 
-An example of configuration in [config.yml](https://github.com/devops-metalflow/metaltask/blob/master/src/config/config.yml):
+An example of configuration in [config.yml](https://github.com/devops-metalflow/metaltask/blob/main/src/config/config.yml):
 
 ```yaml
 apiVersion: v1
