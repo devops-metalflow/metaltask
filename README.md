@@ -3,6 +3,7 @@
 [![Actions Status](https://github.com/devops-metalflow/metaltask/workflows/CI/badge.svg?branch=main&event=push)](https://github.com/devops-metalflow/metaltask/actions?query=workflow%3ACI)
 [![License](https://img.shields.io/github/license/devops-metalflow/metaltask.svg?color=brightgreen)](https://github.com/devops-metalflow/metaltask/blob/main/LICENSE)
 [![Tag](https://img.shields.io/github/tag/devops-metalflow/metaltask.svg?color=brightgreen)](https://github.com/devops-metalflow/metaltask/tags)
+[![Gitter chat](https://badges.gitter.im/craftslab/devops-metalflow.png)](https://gitter.im/craftslab/devops-metalflow)
 
 
 
