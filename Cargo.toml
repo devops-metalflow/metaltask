@@ -4,6 +4,7 @@
 name = "metaltask"
 version = "1.3.0"
 edition = "2021"
+rust-version = "1.59"
 authors = ["Jia Jia <angersax@sina.com>"]
 include = [
     "src/**/*",
@@ -23,6 +24,9 @@ build = "src/flow/build.rs"
 [[bin]]
 name = "metaltask"
 path = "src/main.rs"
+
+[profile.release]
+strip = "debuginfo"
 
 [dependencies]
 chrono = "0.4.19"
