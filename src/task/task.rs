@@ -64,12 +64,12 @@ impl Task {
     pub fn run(&self) -> Result<String, Box<dyn Error>> {
         let output = Command::new(PROG).arg(&self.path).output()?;
         if !output.status.success() {
-            return Err("run failed".into());
+            return Err(String::from_utf8(output.stderr).unwrap().into());
         }
 
         match String::from_utf8(output.stdout) {
             Ok(b) => Ok(b),
-            Err(_) => Err("output invalid".into()),
+            Err(_) => Err("stdout invalid".into()),
         }
     }
 

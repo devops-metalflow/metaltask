@@ -2,13 +2,22 @@
 use std::path::Path;
 
 #[allow(dead_code)]
-pub const DATA: &'static str = "\
+pub const DATA1: &'static str = "\
 #!/bin/bash
 echo \"hello world!\"\
 ";
 
 #[allow(dead_code)]
-pub const NAME: &'static str = "test.sh";
+pub const DATA2: &'static str = "\
+#!/bin/bash
+ech \"hello world!\"\
+";
+
+#[allow(dead_code)]
+pub const NAME1: &'static str = "test1.sh";
+
+#[allow(dead_code)]
+pub const NAME2: &'static str = "test2.sh";
 
 #[allow(dead_code)]
 pub const PATH: &'static str = "/tmp";
@@ -20,9 +29,9 @@ fn test_routine() {
 }
 
 #[test]
-fn test_create() {
+fn test_create1() {
     let path = Path::new("/foo");
-    let path = path.join(NAME.to_string());
+    let path = path.join(NAME1.to_string());
     let task = super::task::Task {
         path,
         ..Default::default()
@@ -31,9 +40,9 @@ fn test_create() {
     assert!(task.create().is_err());
 
     let path = Path::new(PATH);
-    let path = path.join(NAME.to_string());
+    let path = path.join(NAME1.to_string());
     let task = super::task::Task {
-        data: Vec::from(DATA),
+        data: Vec::from(DATA1),
         path,
         ..Default::default()
     };
@@ -42,7 +51,29 @@ fn test_create() {
 }
 
 #[test]
-fn test_run() {
+fn test_create2() {
+    let path = Path::new("/foo");
+    let path = path.join(NAME2.to_string());
+    let task = super::task::Task {
+        path,
+        ..Default::default()
+    };
+
+    assert!(task.create().is_err());
+
+    let path = Path::new(PATH);
+    let path = path.join(NAME2.to_string());
+    let task = super::task::Task {
+        data: Vec::from(DATA2),
+        path,
+        ..Default::default()
+    };
+
+    assert!(task.create().is_ok());
+}
+
+#[test]
+fn test_run1() {
     let path = Path::new(PATH);
     let path = path.join("foo".to_string());
     let task = super::task::Task {
@@ -53,13 +84,35 @@ fn test_run() {
     assert!(task.run().is_err());
 
     let path = Path::new(PATH);
-    let path = path.join(NAME.to_string());
+    let path = path.join(NAME1.to_string());
     let task = super::task::Task {
         path,
         ..Default::default()
     };
 
     assert!(task.run().is_ok());
+    assert!(task.clean().is_ok());
+}
+
+#[test]
+fn test_run2() {
+    let path = Path::new(PATH);
+    let path = path.join("foo".to_string());
+    let task = super::task::Task {
+        path,
+        ..Default::default()
+    };
+
+    assert!(task.run().is_err());
+
+    let path = Path::new(PATH);
+    let path = path.join(NAME2.to_string());
+    let task = super::task::Task {
+        path,
+        ..Default::default()
+    };
+
+    assert!(task.run().is_err());
     assert!(task.clean().is_ok());
 }
 
