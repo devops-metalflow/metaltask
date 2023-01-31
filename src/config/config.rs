@@ -6,7 +6,6 @@ use std::path::Path;
 
 pub const NAME: &'static str = "metaltask";
 pub const PATH: &'static str = "/tmp";
-pub const PROG: &'static str = "bash";
 pub const VERSION: &'static str = "metaltask/version";
 
 #[derive(Clone, Default)]

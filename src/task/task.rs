@@ -1,4 +1,4 @@
-use crate::config::config::{Config, NAME, PATH, PROG};
+use crate::config::config::{Config, NAME, PATH};
 use chrono::{DateTime, Local};
 use std::error::Error;
 use std::fs;
@@ -62,7 +62,12 @@ impl Task {
     }
 
     pub fn run(&self) -> Result<String, Box<dyn Error>> {
-        let output = Command::new(PROG).arg(&self.path).output()?;
+        let mut output = Command::new("bash").arg(&self.path).output()?;
+
+        if cfg!(windows) {
+            output = Command::new("cmd").arg("/C").arg(&self.path).output()?;
+        }
+
         if !output.status.success() {
             return Err(String::from_utf8(output.stderr).unwrap().into());
         }
